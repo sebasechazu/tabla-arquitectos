@@ -1,0 +1,27 @@
+.statistics-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stat-panel {
+    background-color: #F16B5D;
+    /* Color naranja */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin: 0 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-panel p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.stat-panel h2 {
+    margin: 10px 0 0 0;
+    font-size: 24px;
+}

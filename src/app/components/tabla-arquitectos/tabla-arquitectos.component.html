@@ -1,0 +1,66 @@
+<div class="filters-container">
+    <p-dropdown 
+      [options]="dateRanges" 
+      placeholder="Rango de Fechas" 
+      [(ngModel)]="selectedDateRange" 
+      (onChange)="filterTable()">
+    </p-dropdown>
+    
+    <p-dropdown 
+      [options]="statuses" 
+      placeholder="Situación Colegial" 
+      [(ngModel)]="selectedStatus" 
+      (onChange)="filterTable()">
+    </p-dropdown>
+    
+    <p-dropdown 
+      [options]="collegiateNumbers" 
+      placeholder="Nº Colegiado" 
+      [(ngModel)]="selectedCollegiateNumber" 
+      (onChange)="filterTable()">
+    </p-dropdown>
+    
+    <input 
+      pInputText 
+      type="text" 
+      placeholder="Buscar ..." 
+      [(ngModel)]="globalSearchQuery" 
+      (input)="filterTable()" />
+  </div>
+  
+  <p-table 
+    [value]="filteredArquitectos" 
+    responsiveLayout="scroll"
+    [globalFilterFields]="['nroCol', 'nroCSCA', 'nif', 'nombreCompleto', 'situacionColegial', 'tipoColegiado', 'fechaAlta', 'fechaBaja']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nº COL.</th>
+        <th>Nº CSCA</th>
+        <th>NIF</th>
+        <th>Nombre Completo</th>
+        <th>Situación Colegial</th>
+        <th>Tipo Colegiado</th>
+        <th>Fecha Alta</th>
+        <th>Fecha Baja</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-arquitecto>
+      <tr>
+        <td>{{ arquitecto.nroCol }}</td>
+        <td>{{ arquitecto.nroCSCA }}</td>
+        <td>{{ arquitecto.nif }}</td>
+        <td>{{ arquitecto.nombreCompleto }}</td>
+        <td>{{ arquitecto.situacionColegial }}</td>
+        <td>{{ arquitecto.tipoColegiado }}</td>
+        <td>{{ arquitecto.fechaAlta }}</td>
+        <td>{{ arquitecto.fechaBaja || '-' }}</td>
+        <td>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="verDetalle(arquitecto)"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editar(arquitecto)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="eliminar(arquitecto)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  
