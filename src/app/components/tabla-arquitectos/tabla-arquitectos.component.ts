@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Arquitecto } from '../../models/arquitecto.model';
 import { ArquitectosService } from '../../services/arquitectos.service';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Select } from 'primeng/select';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
   selector: 'app-tabla-arquitectos',
   standalone: true,
-  imports: [TableModule, ButtonModule, DropdownModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    TableModule,
+    ButtonModule,
+    DatePicker,
+    Select,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule],
   templateUrl: './tabla-arquitectos.component.html',
   styleUrls: ['./tabla-arquitectos.component.scss']
 })
@@ -17,35 +26,47 @@ export class TablaArquitectosComponent {
 
   arquitectos: Arquitecto[] = [];
   filteredArquitectos: Arquitecto[] = [];
+  statuses: { label: string; value: string }[] = [];
+  startDate: Date | null = null;
+  endDate: Date | null = null;
 
-  dateRanges = [
-    { label: 'Últimos 7 días', value: 'last7days' },
-    { label: 'Este mes', value: 'thisMonth' },
-    { label: 'Año actual', value: 'thisYear' },
+  rowsPerPage: number = 5;
+  rowsPerPageOptions: number[] = [5,10, 25];
+
+  rowsPerPageSelectOptions: { label: string; value: number }[] = [
+    { label: '05', value: 5 },
+    { label: '10', value: 10 },
+    { label: '25', value: 25 }
   ];
-  statuses = [
-    { label: 'Activo', value: 'active' },
-    { label: 'Inactivo', value: 'inactive' },
-    { label: 'Suspendido', value: 'suspended' },
-  ];
+
   collegiateNumbers = [
     { label: '1000 - 1999', value: '1000-1999' },
     { label: '2000 - 2999', value: '2000-2999' },
     { label: '3000 - 3999', value: '3000-3999' },
   ];
-  
+
   selectedDateRange: string | null = null;
   selectedStatus: string | null = null;
   selectedCollegiateNumber: string | null = null;
   globalSearchQuery = '';
 
-  constructor(private arquitectoService: ArquitectosService) { }
+  constructor(private arquitectoService: ArquitectosService , private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.arquitectoService.getArquitectos().subscribe(arquitectos => {
       this.arquitectos = arquitectos;
       this.filteredArquitectos = [...this.arquitectos];
-      this.filterTable(); // Aplicar filtros después de obtener los datos
+
+      this.arquitectoService.getStatuses().subscribe((statuses) => {
+        this.statuses = statuses;
+      });
+      this.filterTable();
+    });
+  }
+
+  filterByDateRange(): void {
+    this.arquitectoService.filterByDateRange(this.startDate, this.endDate).subscribe((filtered) => {
+      this.filteredArquitectos = filtered;
     });
   }
 
@@ -104,7 +125,10 @@ export class TablaArquitectosComponent {
     });
   }
 
-  // trackByArquitecto(index: number, arquitecto: Arquitecto): number {
-  //   return arquitecto.nombreCo; // Identificador único
-  // }
+  resetFilters(): void {
+    this.startDate = null;
+    this.endDate = null;
+    this.selectedStatus = null;
+    this.filteredArquitectos = [...this.arquitectos];
+  }
 }
