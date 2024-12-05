@@ -1,77 +1,79 @@
-<div class="filters-container">
-  <p-datePicker [(ngModel)]="startDate" placeholder="Fecha inicial"></p-datePicker>
-  <p-datePicker [(ngModel)]="endDate" placeholder="Fecha final"></p-datePicker>
-  <button pButton type="button" label="Filtrar" (click)="filterByDateRange()"></button>
+<div class="container">
+  <div class="filters-container">
+    <p-datePicker [(ngModel)]="startDate" placeholder="Fecha inicial"></p-datePicker>
+    <p-datePicker [(ngModel)]="endDate" placeholder="Fecha final"></p-datePicker>
+    <button pButton type="button" label="Filtrar" (click)="filterByDateRange()"></button>
 
 
-  <p-select [options]="statuses" placeholder="Situación Colegial" [(ngModel)]="selectedStatus"
-    (onChange)="filterTable()">
-  </p-select>
+    <p-select [options]="statuses" placeholder="Situación Colegial" [(ngModel)]="selectedStatus"
+      (onChange)="filterTable()">
+    </p-select>
 
-  <p-select [options]="collegiateNumbers" placeholder="Nº Colegiado" [(ngModel)]="selectedCollegiateNumber"
-    (onChange)="filterTable()">
-  </p-select>
+    <p-select [options]="collegiateNumbers" placeholder="Nº Colegiado" [(ngModel)]="selectedCollegiateNumber"
+      (onChange)="filterTable()">
+    </p-select>
 
-  <input pInputText type="text" placeholder="Buscar ..." [(ngModel)]="globalSearchQuery" (input)="filterTable()" />
+    <input pInputText type="text" placeholder="Buscar ..." [(ngModel)]="globalSearchQuery" (input)="filterTable()" />
 
-  <button pButton type="button" label="Limpiar filtros" class="p-button-secondary" (click)="resetFilters()"></button>
+    <button pButton type="button" label="Limpiar filtros" class="p-button-secondary" (click)="resetFilters()"></button>
 
-  <!-- <p-select [options]="rowsPerPageSelectOptions" [(ngModel)]="rowsPerPage" optionLabel="label" placeholder="Filas por página"
+    <!-- <p-select [options]="rowsPerPageSelectOptions" [(ngModel)]="rowsPerPage" optionLabel="label" placeholder="Filas por página"
     class="w-full md:w-56" >
   </p-select> -->
 
+  </div>
+
+  <p-table [value]="filteredArquitectos" responsiveLayout="scroll" [paginator]="true" [rows]="rowsPerPage"
+    [rowsPerPageOptions]="rowsPerPageOptions" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['nroCol', 'nroCSCA', 'nif', 'nombreCompleto', 'situacionColegial', 'tipoColegiado', 'fechaAlta', 'fechaBaja']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nroCol">Nº COL.
+          <p-columnFilter type="text" field="nroCol" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="nroCSCA">Nº CSCA
+          <p-columnFilter type="text" field="nroCSCA" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="nif">NIF
+          <p-columnFilter type="text" field="nif" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="nombreCompleto">Nombre Completo
+          <p-columnFilter type="text" field="nombreCompleto" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="situacionColegial">Situación Colegial
+          <p-columnFilter type="text" field="situacionColegial" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="tipoColegiado">Tipo Colegiado
+          <p-columnFilter type="text" field="tipoColegiado" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="fechaAlta">Fecha Alta
+          <p-columnFilter type="date" field="fechaAlta" display="menu"></p-columnFilter>
+        </th>
+        <th pSortableColumn="fechaBaja">Fecha Baja
+          <p-columnFilter type="date" field="fechaBaja" display="menu"></p-columnFilter>
+        </th>
+        <th>Acciones</th>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-arquitecto>
+      <tr>
+        <td>{{ arquitecto.nroCol }}</td>
+        <td>{{ arquitecto.nroCSCA }}</td>
+        <td>{{ arquitecto.nif }}</td>
+        <td>{{ arquitecto.nombreCompleto }}</td>
+        <td>{{ arquitecto.situacionColegial }}</td>
+        <td>{{ arquitecto.tipoColegiado }}</td>
+        <td>{{ arquitecto.fechaAlta }}</td>
+        <td>{{ arquitecto.fechaBaja || '-' }}</td>
+        <td>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" style="color: blue;"
+            (click)="verDetalle(arquitecto)"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" style="color: red;"
+            (click)="editar(arquitecto)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text" style="color: black;"
+            (click)="eliminar(arquitecto)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
-
-<p-table [value]="filteredArquitectos" responsiveLayout="scroll" [paginator]="true" [rows]="rowsPerPage"
-  [rowsPerPageOptions]="rowsPerPageOptions" [tableStyle]="{ 'min-width': '50rem' }"
-  [globalFilterFields]="['nroCol', 'nroCSCA', 'nif', 'nombreCompleto', 'situacionColegial', 'tipoColegiado', 'fechaAlta', 'fechaBaja']">
-  <ng-template pTemplate="header">
-    <tr>
-      <th pSortableColumn="nroCol">Nº COL.
-        <p-columnFilter type="text" field="nroCol" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="nroCSCA">Nº CSCA
-        <p-columnFilter type="text" field="nroCSCA" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="nif">NIF
-        <p-columnFilter type="text" field="nif" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="nombreCompleto">Nombre Completo
-        <p-columnFilter type="text" field="nombreCompleto" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="situacionColegial">Situación Colegial
-        <p-columnFilter type="text" field="situacionColegial" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="tipoColegiado">Tipo Colegiado
-        <p-columnFilter type="text" field="tipoColegiado" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="fechaAlta">Fecha Alta
-        <p-columnFilter type="date" field="fechaAlta" display="menu"></p-columnFilter>
-      </th>
-      <th pSortableColumn="fechaBaja">Fecha Baja
-        <p-columnFilter type="date" field="fechaBaja" display="menu"></p-columnFilter>
-      </th>
-      <th>Acciones</th>
-
-  </ng-template>
-  <ng-template pTemplate="body" let-arquitecto>
-    <tr>
-      <td>{{ arquitecto.nroCol }}</td>
-      <td>{{ arquitecto.nroCSCA }}</td>
-      <td>{{ arquitecto.nif }}</td>
-      <td>{{ arquitecto.nombreCompleto }}</td>
-      <td>{{ arquitecto.situacionColegial }}</td>
-      <td>{{ arquitecto.tipoColegiado }}</td>
-      <td>{{ arquitecto.fechaAlta }}</td>
-      <td>{{ arquitecto.fechaBaja || '-' }}</td>
-      <td>
-        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" style="color: blue;"
-          (click)="verDetalle(arquitecto)"></button>
-        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" style="color: red;"
-          (click)="editar(arquitecto)"></button>
-        <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text" style="color: black;"
-          (click)="eliminar(arquitecto)"></button>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
