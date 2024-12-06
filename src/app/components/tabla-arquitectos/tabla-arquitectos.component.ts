@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
   selector: 'app-tabla-arquitectos',
@@ -17,6 +19,8 @@ import { CalendarModule } from 'primeng/calendar';
     CalendarModule,
     DropdownModule,
     FormsModule,
+    InputGroupModule,
+    InputGroupAddonModule,
     ReactiveFormsModule,
     InputTextModule],
   templateUrl: './tabla-arquitectos.component.html',
