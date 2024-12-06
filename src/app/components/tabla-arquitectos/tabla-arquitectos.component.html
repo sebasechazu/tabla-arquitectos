@@ -1,25 +1,17 @@
 <div class="container">
   <div class="filters-container">
-    <p-datePicker [(ngModel)]="startDate" placeholder="Fecha inicial"></p-datePicker>
-    <p-datePicker [(ngModel)]="endDate" placeholder="Fecha final"></p-datePicker>
+    <p-calendar [(ngModel)]="startDate" placeholder="Fecha inicial" />
+    <p-calendar [(ngModel)]="endDate" placeholder="Fecha final" />
     <button pButton type="button" label="Filtrar" (click)="filterByDateRange()"></button>
 
-
-    <p-select [options]="statuses" placeholder="Situación Colegial" [(ngModel)]="selectedStatus"
-      (onChange)="filterTable()">
-    </p-select>
-
-    <p-select [options]="collegiateNumbers" placeholder="Nº Colegiado" [(ngModel)]="selectedCollegiateNumber"
-      (onChange)="filterTable()">
-    </p-select>
+    <p-dropdown [options]="statuses" placeholder="Situación Colegial" [(ngModel)]="selectedStatus"
+      (onChange)="filterTable()" />
+    
+    <p-dropdown [options]="collegiateNumbers" placeholder="Nº Colegiado" [(ngModel)]="selectedCollegiateNumber"
+      (onChange)="filterTable()" />
 
     <input pInputText type="text" placeholder="Buscar ..." [(ngModel)]="globalSearchQuery" (input)="filterTable()" />
-
     <button pButton type="button" label="Limpiar filtros" class="p-button-secondary" (click)="resetFilters()"></button>
-
-    <!-- <p-select [options]="rowsPerPageSelectOptions" [(ngModel)]="rowsPerPage" optionLabel="label" placeholder="Filas por página"
-    class="w-full md:w-56" >
-  </p-select> -->
 
   </div>
 

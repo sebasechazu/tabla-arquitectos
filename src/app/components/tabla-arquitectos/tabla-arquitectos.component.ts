@@ -5,8 +5,8 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Select } from 'primeng/select';
-import { DatePicker } from 'primeng/datepicker';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-tabla-arquitectos',
@@ -14,8 +14,8 @@ import { DatePicker } from 'primeng/datepicker';
   imports: [
     TableModule,
     ButtonModule,
-    DatePicker,
-    Select,
+    CalendarModule,
+    DropdownModule,
     FormsModule,
     ReactiveFormsModule,
     InputTextModule],
