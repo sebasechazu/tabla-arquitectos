@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { TablaArquitectosComponent } from "./components/tabla-arquitectos/tabla-arquitectos.component";
 import { OnInit } from '@angular/core';
 import { ArquitectosService } from './services/arquitectos.service';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TablaArquitectosComponent],
+  imports: [TablaArquitectosComponent, ButtonModule,DialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -15,6 +17,8 @@ export class AppComponent implements OnInit {
   totalArquitectos: number | undefined;
   totalSolicitudes: number | undefined;
   totalAltas: number | undefined;
+
+  visible: boolean = false;
 
   constructor(private arquitectosService: ArquitectosService) { }
 
@@ -28,4 +32,14 @@ export class AppComponent implements OnInit {
   }
 
   title = 'tabla-arquitectos';
+
+  showDialog(){
+    this.visible = true;
+    console.log('show dialog');
+  }
+
+  closeDialog(){
+    this.visible = false;
+    console.log('close dialog');
+  }
 }

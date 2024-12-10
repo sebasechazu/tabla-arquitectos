@@ -1,27 +1,26 @@
-<div class="container">
-  
-  <div class="filters-container">
+<div class="flex flex-col gap-10 mx-5">
 
-    <p-calendar [(ngModel)]="startDate" placeholder="Fecha inicial" />
-    <p-calendar [(ngModel)]="endDate" placeholder="Fecha final" />
- 
-    <p-button label="Filtrar" (click)="filterByDateRange()"  size="small"/>
+  <div class="flex flex-wrap items-center gap-2">
 
-    <p-dropdown [options]="statuses" placeholder="Situación Colegial" [(ngModel)]="selectedStatus"
-      (onChange)="filterTable()" />
-    
-    <p-dropdown [options]="collegiateNumbers" placeholder="Nº Colegiado" [(ngModel)]="selectedCollegiateNumber"
-      (onChange)="filterTable()" />
-
-    <input pInputText type="text" placeholder="Buscar ..." [(ngModel)]="globalSearchQuery" (input)="filterTable()" />
-
-    <p-button label="Limpiar filtros"  (click)="resetFilters()"  size="small" />
+    <p-datepicker [(ngModel)]="startDate" placeholder="Fecha inicial" size="small"
+      class="flex-1 min-w-[150px] max-w-[200px] text-xs px-1" />
+    <p-datepicker [(ngModel)]="endDate" placeholder="Fecha final" size="small"
+      class="flex-1 min-w-[150px] max-w-[200px] text-xs px-1" />
+    <p-button label="Filtrar" (click)="filterByDateRange()" class="px-4 text-xs" size="small" />
+    <p-select [options]="statuses" placeholder="Situación Colegial" [(ngModel)]="selectedStatus" size="small"
+      (onChange)="filterTable()" class="flex-1 min-w-[150px] max-w-[200px] text-xs px-1" />
+    <p-select [options]="collegiateNumbers" placeholder="Nº Colegiado" [(ngModel)]="selectedCollegiateNumber" size="small"
+      (onChange)="filterTable()" class="flex-1 min-w-[150px] max-w-[200px] text-xs px-1" />
+    <input pInputText type="text" placeholder="Buscar ..." [(ngModel)]="globalSearchQuery" (input)="filterTable()"
+      class="flex-1 min-w-[150px] max-w-[200px] h-9 text-sm px-1 border rounded" />
+    <p-button label="Limpiar filtros" (click)="resetFilters()" class="px-4 text-xs" size="small" />
 
   </div>
 
-  <p-table [value]="filteredArquitectos" responsiveLayout="scroll" [paginator]="true" [rows]="rowsPerPage"
-    [rowsPerPageOptions]="rowsPerPageOptions" [tableStyle]="{ 'min-width': '50rem' }"
-    [globalFilterFields]="['nroCol', 'nroCSCA', 'nif', 'nombreCompleto', 'situacionColegial', 'tipoColegiado', 'fechaAlta', 'fechaBaja']">
+  <p-table class="text-sm" [value]="filteredArquitectos" responsiveLayout="scroll" [paginator]="true"
+    [rows]="rowsPerPage" [rowsPerPageOptions]="rowsPerPageOptions" [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['nroCol', 'nroCSCA', 'nif', 'nombreCompleto', 'situacionColegial', 'tipoColegiado', 'fechaAlta', 'fechaBaja']"
+    class="text-xs">
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="nroCol">Nº COL.
@@ -49,9 +48,9 @@
           <p-columnFilter type="date" field="fechaBaja" display="menu"></p-columnFilter>
         </th>
         <th>Acciones</th>
-
+      </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-arquitecto>
+    <ng-template pTemplate="body" class="text-xs" let-arquitecto>
       <tr>
         <td>{{ arquitecto.nroCol }}</td>
         <td>{{ arquitecto.nroCSCA }}</td>
@@ -62,11 +61,11 @@
         <td>{{ arquitecto.fechaAlta }}</td>
         <td>{{ arquitecto.fechaBaja || '-' }}</td>
         <td>
-          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text" style="color: blue;"
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text text-blue-600"
             (click)="verDetalle(arquitecto)"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text" style="color: red;"
+          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text text-red-600"
             (click)="editar(arquitecto)"></button>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text" style="color: black;"
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text text-black"
             (click)="eliminar(arquitecto)"></button>
         </td>
       </tr>

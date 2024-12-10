@@ -6,7 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePicker } from 'primeng/datepicker';
+import { Select } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
@@ -16,7 +17,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
   imports: [
     TableModule,
     ButtonModule,
-    CalendarModule,
+    DatePicker,
+    Select,
     DropdownModule,
     FormsModule,
     InputGroupModule,

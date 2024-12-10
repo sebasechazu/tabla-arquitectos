@@ -1,23 +1,24 @@
-<h1 style="text-align: left;">COAM Digital</h1>
+<h1 class="text-left text-2xl font-bold mb-4">COAM Digital</h1>
 
-<div class="statistics-container">
-  <div class="stat-panel">
-    <h2>Total de Colegiados</h2>
-    <p>{{ totalColegiados }}</p>
+<div class="flex flex-wrap justify-between max-w-3xl mx-auto px-5 mb-4">
+  <div class="bg-orange-500 text-white text-center p-5 rounded-lg flex-1 mx-2 shadow-md">
+    <h2 class="text-xl font-bold mt-0">Total de Colegiados</h2>
+    <p class="font-bold m-0">{{ totalColegiados }}</p>
   </div>
-  <div class="stat-panel">
-    <h2>Total de Arquitectos</h2>
-    <p>{{ totalArquitectos }}</p>
+  <div class="bg-orange-500 text-white text-center p-5 rounded-lg flex-1 mx-2 shadow-md">
+    <h2 class="text-xl font-bold mt-0">Total de Arquitectos</h2>
+    <p class="font-bold m-0">{{ totalArquitectos }}</p>
   </div>
-  <div class="stat-panel">
-    <h2>Total de Solicitudes</h2>
-    <p>{{ totalSolicitudes }}</p>
+  <div class="bg-orange-500 text-white text-center p-5 rounded-lg flex-1 mx-2 shadow-md">
+    <h2 class="text-xl font-bold mt-0">Total de Solicitudes</h2>
+    <p class="font-bold m-0">{{ totalSolicitudes }}</p>
   </div>
-  <div class="stat-panel">
-    <h2>Total de Altas</h2>
-    <p>{{ totalAltas }}</p>
+  <div class="bg-orange-500 text-white text-center p-5 rounded-lg flex-1 mx-2 shadow-md">
+    <h2 class="text-xl font-bold mt-0">Total de Altas</h2>
+    <p class="font-bold m-0">{{ totalAltas }}</p>
   </div>
 </div>
+
 <div class="table-container">
   <app-tabla-arquitectos></app-tabla-arquitectos>
 </div>
