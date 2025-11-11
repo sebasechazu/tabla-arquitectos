@@ -6,3 +6,5 @@ Esta aplicación es un panel administrativo para la gestión de cursos, estudian
 **EN:**
 This application is an admin panel for managing courses, students, and professors. It allows you to view, create, edit, and delete records for each entity, as well as see course details and their relationship with students and professors. Built with Angular standalone, PrimeNG 20, and Tailwind CSS for a modern, responsive, and accessible experience.
 
+<!-- Actualización para forzar deploy en GitHub Pages -->
+
