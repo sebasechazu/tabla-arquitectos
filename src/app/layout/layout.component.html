@@ -1,0 +1,80 @@
+
+<!-- Toolbar superior con PrimeNG -->
+<p-toolbar class="bg-white dark:bg-gray-900 shadow sticky top-0 z-20 px-4 py-2 !border-none">
+    <div class="flex items-center gap-2" left>
+        <button
+            pButton
+            icon="pi pi-bars"
+            (click)="sidebarVisible = true"
+            aria-controls="main-drawer"
+            [attr.aria-expanded]="sidebarVisible"
+            styleClass="!bg-transparent !border-none !shadow-none focus:ring-2 focus:ring-primary"
+        ></button>
+    <span class="text-lg font-bold tracking-tight text-gray-800 dark:text-gray-100">{{ pageTitle }}</span>
+    </div>
+        <div right>
+            <p-avatar #avatarRef image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" size="large" class="ml-2 cursor-pointer" style="vertical-align: middle;" (click)="perfilMenu.toggle($event)"></p-avatar>
+            <p-menu #perfilMenu [popup]="true" [model]="perfilMenuItems"></p-menu>
+        </div>
+</p-toolbar>
+
+
+
+
+<!-- Drawer lateral rediseñado -->
+<p-drawer id="main-drawer" [(visible)]="sidebarVisible" position="left" [baseZIndex]="10000" styleClass="!w-full max-w-xs md:!w-80 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700" role="region" aria-label="Menú principal" (onHide)="sidebarVisible = false">
+    <ng-template pTemplate="headless">
+        <div class="flex flex-col h-full">
+            <!-- Header personalizado -->
+            <div class="flex items-center justify-between px-6 pt-4 pb-2 shrink-0 border-b border-gray-200 dark:border-gray-700">
+                <span class="inline-flex items-center gap-2">
+                                            <!-- SVG de estudiantes (grupo de personas) con colores visibles -->
+                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="block">
+                                                <circle cx="16" cy="16" r="16" fill="#dbeafe"/>
+                                                <circle cx="11" cy="14" r="3" fill="#2563eb"/>
+                                                <circle cx="21" cy="14" r="3" fill="#2563eb"/>
+                                                <circle cx="16" cy="11" r="3.5" fill="#2563eb"/>
+                                                <path d="M7 23c0-2.5 3-4 5-4s5 1.5 5 4v1H7v-1z" fill="#2563eb"/>
+                                                <path d="M15 23c0-1.5 2-2.5 4-2.5s4 1 4 2.5v1h-8v-1z" fill="#2563eb"/>
+                                            </svg>
+                    <span class="font-semibold text-2xl text-primary">Admin Cursos</span>
+                </span>
+                <span>
+                    <button pButton type="button" (click)="sidebarVisible = false" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></button>
+                </span>
+            </div>
+            <!-- Menú principal -->
+            <div class="overflow-y-auto flex-1">
+                <ul class="list-none p-4 m-0">
+                    <li>
+                        <a pRipple (click)="go('cursos'); sidebarVisible = false" class="flex items-center cursor-pointer p-4 rounded-lg text-gray-700 dark:text-gray-100 hover:bg-primary/10 dark:hover:bg-primary/20 duration-150 transition-colors p-ripple">
+                            <i class="pi pi-book mr-2 text-primary"></i>
+                            <span class="font-medium">Cursos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple (click)="go('estudiantes'); sidebarVisible = false" class="flex items-center cursor-pointer p-4 rounded-lg text-gray-700 dark:text-gray-100 hover:bg-primary/10 dark:hover:bg-primary/20 duration-150 transition-colors p-ripple">
+                            <i class="pi pi-users mr-2 text-primary"></i>
+                            <span class="font-medium">Estudiantes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple (click)="go('profesores'); sidebarVisible = false" class="flex items-center cursor-pointer p-4 rounded-lg text-gray-700 dark:text-gray-100 hover:bg-primary/10 dark:hover:bg-primary/20 duration-150 transition-colors p-ripple">
+                            <i class="pi pi-user mr-2 text-primary"></i>
+                            <span class="font-medium">Profesores</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Footer -->
+            <div class="mt-auto px-6 pb-4">
+                <span class="text-xs text-gray-400">&copy; {{ currentYear }} Admin Cursos</span>
+            </div>
+        </div>
+    </ng-template>
+</p-drawer>
+
+<!-- Contenido principal -->
+<main class="p-4 bg-gray-50 dark:bg-gray-800 min-h-screen">
+    <router-outlet></router-outlet>
+</main>

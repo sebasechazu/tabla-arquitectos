@@ -1,0 +1,49 @@
+@if (detalle) {
+  <div class="p-4">
+    <h3 class="text-lg font-bold mb-4 text-primary flex items-center gap-2">
+      <i class="pi pi-book text-primary text-xl"></i>
+      {{ detalle.curso.nombre }}
+    </h3>
+    <div class="mb-3 flex items-center gap-2">
+      <span class="font-semibold">Profesor:</span>
+      @if (detalle.profesor) {
+        <p-chip [label]="detalle.profesor.nombre" icon="pi pi-user" class="bg-blue-50 text-blue-800" />
+      } @else {
+        <span class="italic text-gray-400">Sin asignar</span>
+      }
+    </div>
+    <div class="mb-3 flex items-center gap-2">
+      <span class="font-semibold">Descripción:</span>
+      <span>{{ detalle.curso.descripcion }}</span>
+    </div>
+    <div class="mb-3 flex items-center gap-2">
+      <span class="font-semibold">Duración:</span>
+      <span>{{ detalle.curso.duracion }}</span>
+    </div>
+    <div class="mb-3 flex items-center gap-2">
+      <span class="font-semibold">Nivel:</span>
+      <p-tag [value]="detalle.curso.nivel" [severity]="getNivelColor(detalle.curso.nivel)" />
+    </div>
+    <div class="mb-3 flex items-center gap-2">
+      <span class="font-semibold">Alumnos inscriptos:</span>
+      <span>{{ detalle.estudiantes.length }}</span>
+    </div>
+    <div class="mt-4">
+      <span class="font-semibold block mb-1">Listado de estudiantes:</span>
+      @if (detalle.estudiantes.length > 0) {
+        <ul class="list-disc ml-6 mt-1 space-y-1">
+          @for (est of detalle.estudiantes; track est.id) {
+            <li class="flex items-center gap-2">
+              <p-chip [label]="est.nombre" icon="pi pi-user" class="mr-2" />
+              <span class="text-xs text-gray-500">{{ est.email }}</span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="text-gray-400 italic mt-1">No hay estudiantes inscriptos.</div>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="p-4 text-center text-gray-400">No hay información de detalle disponible.</div>
+}

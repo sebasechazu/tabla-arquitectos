@@ -1,0 +1,105 @@
+
+<div class="bg-white dark:bg-gray-900 rounded-lg shadow p-4">
+	<div class="flex items-center justify-between mb-4">
+		<h2 class="text-xl font-bold text-primary">Listado de Estudiantes</h2>
+		<button pButton type="button" icon="pi pi-plus" label="Nuevo" class="!bg-primary !border-primary !text-white" (click)="openNew()"></button>
+	</div>
+	<p-table
+		[value]="estudiantes()"
+		dataKey="id"
+		class="p-datatable-sm"
+		[tableStyle]="{ 'min-width': '100%' }"
+		[responsiveLayout]="'scroll'"
+	>
+		<ng-template pTemplate="header">
+			<tr>
+				<th>Nombre</th>
+				<th>Email</th>
+				<th>Curso</th>
+				<th>Fecha Inscripción</th>
+				<th>Estado</th>
+				<th class="w-32 text-center">Acciones</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-estudiante>
+			<tr>
+				<td class="font-medium">{{ estudiante.nombre }}</td>
+				<td>{{ estudiante.email }}</td>
+			<td>{{ getCursoNombre(estudiante.cursoId) }}</td>
+				<td>{{ estudiante.fechaInscripcion }}</td>
+				<td>
+					<span class="px-2 py-1 rounded text-xs font-semibold"
+						[ngClass]="{
+							'bg-green-100 text-green-800': estudiante.estado === 'Activo',
+							'bg-yellow-100 text-yellow-800': estudiante.estado === 'Inactivo',
+							'bg-blue-100 text-blue-800': estudiante.estado === 'Egresado'
+						}"
+					>
+						{{ estudiante.estado }}
+					</span>
+				</td>
+				<td class="flex gap-2 justify-center">
+					<button pButton type="button" icon="pi pi-pencil" class="p-1 !text-primary" (click)="editEstudiante(estudiante)" aria-label="Editar" pTooltip="Editar estudiante" tooltipPosition="top"></button>
+					<button pButton type="button" icon="pi pi-trash" class="p-1 !text-red-600" (click)="deleteEstudiante(estudiante)" aria-label="Eliminar" pTooltip="Eliminar estudiante" tooltipPosition="top"></button>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage">
+			<tr>
+				<td colspan="6" class="text-center text-gray-400">No hay estudiantes disponibles.</td>
+			</tr>
+		</ng-template>
+	</p-table>
+
+	<!-- Dialogo para agregar/editar -->
+	<p-dialog
+		[(visible)]="dialogVisible"
+		[modal]="true"
+		[closable]="true"
+		[dismissableMask]="true"
+		[style]="{ width: '90vw', maxWidth: '400px' }"
+		[header]="editMode ? 'Editar Estudiante' : 'Nuevo Estudiante'"
+		(onHide)="closeDialog()"
+	>
+		<form [formGroup]="estudianteForm" (ngSubmit)="saveEstudiante()" class="flex flex-col gap-4">
+			<div>
+				<label class="block mb-1 font-medium">Nombre</label>
+				<input pInputText formControlName="nombre" class="w-full" required />
+			</div>
+			<div>
+				<label class="block mb-1 font-medium">Email</label>
+				<input pInputText formControlName="email" class="w-full" required />
+			</div>
+			<div>
+				<label class="block mb-1 font-medium">Curso</label>
+				<p-select
+					[options]="cursos()"
+					optionLabel="nombre"
+					optionValue="id"
+					formControlName="cursoId"
+					placeholder="Selecciona curso"
+					class="w-full"
+				></p-select>
+			</div>
+			<div>
+				<label class="block mb-1 font-medium">Fecha Inscripción</label>
+				<input pInputText formControlName="fechaInscripcion" class="w-full" required type="date" />
+			</div>
+			<div>
+				<label class="block mb-1 font-medium">Estado</label>
+				<p-select
+					[options]="estados"
+					optionLabel="label"
+					optionValue="value"
+					formControlName="estado"
+					placeholder="Selecciona estado"
+					class="w-full"
+				></p-select>
+			</div>
+			<div class="flex justify-end gap-2 mt-2">
+				<button pButton type="button" label="Cancelar" class="p-button-text" (click)="closeDialog()"></button>
+				<button pButton type="submit" label="Guardar" [disabled]="estudianteForm.invalid" class="!bg-primary !border-primary !text-white"></button>
+			</div>
+		</form>
+	</p-dialog>
+</div>
