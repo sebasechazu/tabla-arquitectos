@@ -13,6 +13,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
     selector: 'app-tabla-arquitectos',
+    standalone: true,
     imports: [
         TableModule,
         ButtonModule,
@@ -26,7 +27,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
         InputTextModule
     ],
     templateUrl: './tabla-arquitectos.component.html',
-    styleUrls: ['./tabla-arquitectos.component.scss']
 })
 export class TablaArquitectosComponent {
 

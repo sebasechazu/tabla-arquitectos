@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'app-root',
+    standalone: true,
     imports: [TablaArquitectosComponent, ButtonModule, DialogModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
