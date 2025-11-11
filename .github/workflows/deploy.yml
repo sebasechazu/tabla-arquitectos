@@ -24,7 +24,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build -- --base-href=/tabla-arquitectos/
+        run: npm run build -- --base-href=/admin-cursos/
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
