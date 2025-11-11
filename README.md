@@ -1,6 +1,3 @@
-
-# TablaArquitectos
-
 ## Descripción / Description
 
 **ES:**
