@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build -- --output-path=dist/browser --base-href=/
+        run: npm run build -- --output-path=dist/browser --base-href=/admin-cursos/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
