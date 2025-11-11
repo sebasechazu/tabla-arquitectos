@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { Arquitecto } from '../../models/arquitecto.model';
 import { ArquitectosService } from '../../services/arquitectos.service';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { DatePicker } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -19,7 +19,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
         ButtonModule,
         DatePicker,
         Select,
-        DropdownModule,
+        SelectModule,
         FormsModule,
         InputGroupModule,
         InputGroupAddonModule,
@@ -28,35 +28,36 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     ],
     templateUrl: './tabla-arquitectos.component.html',
 })
-export class TablaArquitectosComponent {
+export class TablaArquitectosComponent implements OnInit {
 
-  arquitectos: Arquitecto[] = [];
-  filteredArquitectos: Arquitecto[] = [];
-  statuses: { label: string; value: string }[] = [];
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+  protected arquitectos: Arquitecto[] = [];
+  protected filteredArquitectos: Arquitecto[] = [];
+  protected statuses: { label: string; value: string }[] = [];
+  protected startDate: Date | null = null;
+  protected endDate: Date | null = null;
 
-  rowsPerPage: number = 5;
-  rowsPerPageOptions: number[] = [5,10, 25];
+  protected rowsPerPage: number = 5;
+  protected rowsPerPageOptions: number[] = [5,10, 25];
 
-  rowsPerPageSelectOptions: { label: string; value: number }[] = [
+  protected rowsPerPageSelectOptions: { label: string; value: number }[] = [
     { label: '05', value: 5 },
     { label: '10', value: 10 },
     { label: '25', value: 25 }
   ];
 
-  collegiateNumbers = [
+  protected collegiateNumbers = [
     { label: '1000 - 1999', value: '1000-1999' },
     { label: '2000 - 2999', value: '2000-2999' },
     { label: '3000 - 3999', value: '3000-3999' },
   ];
 
-  selectedDateRange: string | null = null;
-  selectedStatus: string | null = null;
-  selectedCollegiateNumber: string | null = null;
-  globalSearchQuery = '';
+  protected selectedDateRange: string | null = null;
+  protected selectedStatus: string | null = null;
+  protected selectedCollegiateNumber: string | null = null;
+  protected globalSearchQuery = '';
 
-  constructor(private arquitectoService: ArquitectosService , private cdr: ChangeDetectorRef) { }
+  private arquitectoService = inject(ArquitectosService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.arquitectoService.getArquitectos().subscribe(arquitectos => {
@@ -70,26 +71,26 @@ export class TablaArquitectosComponent {
     });
   }
 
-  filterByDateRange(): void {
+  protected filterByDateRange(): void {
     this.arquitectoService.filterByDateRange(this.startDate, this.endDate).subscribe((filtered) => {
       this.filteredArquitectos = filtered;
     });
   }
 
   // Acciones
-  verDetalle(arquitecto: Arquitecto) {
+  protected verDetalle(arquitecto: Arquitecto) {
     console.log('Detalle:', arquitecto);
   }
 
-  editar(arquitecto: Arquitecto) {
+  protected editar(arquitecto: Arquitecto) {
     console.log('Editar:', arquitecto);
   }
 
-  eliminar(arquitecto: Arquitecto) {
+  protected eliminar(arquitecto: Arquitecto) {
     console.log('Eliminar:', arquitecto);
   }
 
-  filterTable() {
+  protected filterTable() {
     this.filteredArquitectos = this.arquitectos.filter((arquitecto) => {
       // Filtrar por rango de fechas
       const today = new Date();
@@ -131,7 +132,7 @@ export class TablaArquitectosComponent {
     });
   }
 
-  resetFilters(): void {
+  protected resetFilters(): void {
     this.startDate = null;
     this.endDate = null;
     this.selectedStatus = null;

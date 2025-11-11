@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TablaArquitectosComponent } from "./components/tabla-arquitectos/tabla-arquitectos.component";
-import { OnInit } from '@angular/core';
 import { ArquitectosService } from './services/arquitectos.service';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -13,14 +12,14 @@ import { DialogModule } from 'primeng/dialog';
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  private arquitectosService = inject(ArquitectosService);
+
   totalColegiados: number | undefined;
   totalArquitectos: number | undefined;
   totalSolicitudes: number | undefined;
   totalAltas: number | undefined;
 
   visible: boolean = false;
-
-  constructor(private arquitectosService: ArquitectosService) { }
 
   ngOnInit(): void {
     this.arquitectosService.getData().subscribe(data => {
@@ -33,12 +32,12 @@ export class AppComponent implements OnInit {
 
   title = 'tabla-arquitectos';
 
-  showDialog(){
+  protected showDialog(){
     this.visible = true;
     console.log('show dialog');
   }
 
-  closeDialog(){
+  protected closeDialog(){
     this.visible = false;
     console.log('close dialog');
   }
