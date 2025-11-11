@@ -12,21 +12,21 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
-  selector: 'app-tabla-arquitectos',
-  standalone: true,
-  imports: [
-    TableModule,
-    ButtonModule,
-    DatePicker,
-    Select,
-    DropdownModule,
-    FormsModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    ReactiveFormsModule,
-    InputTextModule],
-  templateUrl: './tabla-arquitectos.component.html',
-  styleUrls: ['./tabla-arquitectos.component.scss']
+    selector: 'app-tabla-arquitectos',
+    imports: [
+        TableModule,
+        ButtonModule,
+        DatePicker,
+        Select,
+        DropdownModule,
+        FormsModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        ReactiveFormsModule,
+        InputTextModule
+    ],
+    templateUrl: './tabla-arquitectos.component.html',
+    styleUrls: ['./tabla-arquitectos.component.scss']
 })
 export class TablaArquitectosComponent {
 
